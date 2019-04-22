@@ -50,7 +50,6 @@ exports.getEditProduct =  (req, res, next) => {
    if(!editMode) return res.redirect('/');
 
    const prodId = req.params.productId;
-   console.log(req.user);
    req.user.getProducts({ where: { id: prodId } })
       .then(products => {
           const product = products[0];
@@ -67,9 +66,9 @@ exports.getEditProduct =  (req, res, next) => {
       .catch(err => console.log(err))
 };
 
-
 exports.getProducts = (req, res, next) => {
-    req.user.getProducts()
+    req.user
+      .getProducts()
       .then(products => {
          res.render('admin/products', {
             prods: products,

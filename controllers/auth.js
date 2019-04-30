@@ -23,7 +23,30 @@ exports.postLogout = (req, res, next) => {
    });
 };
 
-exports.postSignup = (req, res, next) => {};
+exports.postSignup = (req, res, next) => {
+   const { email, password, confirmPassword } = req.body;
+
+   User
+      .findOne({email: email})
+      .then(userDoc => {
+         if (userDoc) {
+            return res.redirect('/signup')
+         }
+
+         const user = new User({
+            email,
+            password,
+            cart: {
+               items: [],
+            }
+         });
+         return  user.save();
+      })
+      .then(result => {
+         res.redirect('/login')
+      })
+      .catch(err => console.log(err))
+};
 
 exports.postLogin = (req, res, next) => {
    User.findById('5cc58a67c9d61374bcff6967')

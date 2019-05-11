@@ -25,14 +25,22 @@
                     value="<% if (editing || hasError) { %><%= product.title  %><% } %>"
                 >
             </div>
+<!--            <div class="form-control">-->
+<!--                <label for="imageUrl">Image url</label>-->
+<!--                <input-->
+<!--                    type="text"-->
+<!--                    name="imageUrl"-->
+<!--                    id="imageUrl"-->
+<!--                    class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"-->
+<!--                    value="<% if (editing || hasError) { %><%= product.imageUrl  %><% } %>"-->
+<!--                >-->
+<!--            </div>-->
             <div class="form-control">
-                <label for="imageUrl">Image url</label>
+                <label for="imageUrl">Image</label>
                 <input
-                    type="text"
-                    name="imageUrl"
-                    id="imageUrl"
-                    class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
-                    value="<% if (editing || hasError) { %><%= product.imageUrl  %><% } %>"
+                    type="file"
+                    name="image"
+                    id="image"
                 >
             </div>
 

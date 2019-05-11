@@ -28,7 +28,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
-const fileStorage = multer.diskStorage({
+const storage = multer.diskStorage({
    destination: (req, file, cb) => {
       cb(null, 'images')
    },
@@ -36,9 +36,16 @@ const fileStorage = multer.diskStorage({
       cb(null, new Date().toISOString() + '_' + file.originalname);
    },
 });
+const fileFilter = (req, file, cb) => {
+   if (file.mimeType === 'image/png' || file.mimeType === 'image/jpg' || file.mimeType === 'image/jpg') {
+      cb(null, true);
+   } else {
+      cb(null, false);
+   }
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({storage: fileStorage}).single('image'));
+app.use(multer({storage, fileFilter, }).single('image'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
    session({
